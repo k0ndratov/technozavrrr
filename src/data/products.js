@@ -1,5 +1,15 @@
 export default [
   {
+    title: 'Soup',
+    price: 600,
+    image: 'img/soup.jpg',
+  },
+  {
+    title: 'G-SHOCK',
+    price: 22490,
+    image: 'img/clock.jpg',
+  },
+  {
     title: 'Электроскейт Razor Cruiser',
     price: 24690,
     image: 'img/board.jpg',
