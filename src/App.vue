@@ -2,7 +2,7 @@
 <div>
   <section class="catalog">
     <ProductList :products="products"/>
-    <BasePagination :page="page" :count="productsCount" :per-page="productsPerPage"/>
+    <BasePagination v-model="page" :count="productsCount" :per-page="productsPerPage"/>
 </section>
 </div>
 </template>
