@@ -27,7 +27,7 @@
         href="#"
         aria-label="Следующая страница"
         :class="{'pagination__link--disabled': page===pages}"
-        @click="paginate(page+1)">
+        @click.prevent="paginate(page+1)">
         <svg width="8" height="14" fill="currentColor">
           <use xlink:href="#icon-arrow-right"></use>
         </svg>
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     paginate(page) {
-      this.$emit('paginate', page);
+      if (page > 0 && page <= this.perPage) this.$emit('paginate', page);
     },
   },
 };
