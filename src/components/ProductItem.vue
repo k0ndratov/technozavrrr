@@ -40,6 +40,19 @@
         </span>
       </label>
     </li>
+    <li class="colors__item">
+      <label class="colors__label" :for="product.title+'inputId-3'">
+        <input
+          class="colors__radio sr-only"
+          type="radio"
+          value="#222"
+          :name="product.title+'color'"
+          :id="product.title+'inputId-3'"
+          v-model="color">
+        <span class="colors__value" style="background-color: #222;">
+        </span>
+      </label>
+    </li>
   </ul>
   </div>
 </template>
