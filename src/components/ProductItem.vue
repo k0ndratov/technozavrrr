@@ -15,26 +15,28 @@
 
   <ul class="colors colors--black">
     <li class="colors__item">
-      <label class="colors__label" for="color-1">
+      <label class="colors__label" :for="product.title+'inputId-1'">
         <input
           class="colors__radio sr-only"
           type="radio"
-          name="color-1"
           value="#73B6EA"
+          :name="product.title+'color'"
+          :id="product.title+'inputId-1'"
           v-model="color">
         <span class="colors__value" style="background-color: #73B6EA;">
         </span>
       </label>
     </li>
     <li class="colors__item">
-      <label class="colors__label" for="color-1">
+      <label class="colors__label" :for="product.title+'inputId-2'">
         <input
           class="colors__radio sr-only"
           type="radio"
-          name="color-1"
-          value="#73B6EA"
+          value="#8BE000"
+          :name="product.title+'color'"
+          :id="product.title+'inputId-2'"
           v-model="color">
-        <span class="colors__value" style="background-color: #73B6EA;">
+        <span class="colors__value" style="background-color: #8BE000;">
         </span>
       </label>
     </li>
