@@ -3,22 +3,36 @@
     <aside class="filter">
           <h2 class="filter__title">Фильтры</h2>
 
-          <form class="filter__form form" action="#" method="get">
+          <form class="filter__form form" action="#" method="get" @submit.prevent="submit">
             <fieldset class="form__block">
               <legend class="form__legend">Цена</legend>
               <label class="form__label form__label--price" for="min-price">
-                <input class="form__input" type="text" name="min-price" value="0">
+                <input
+                  class="form__input"
+                  type="text"
+                  name="min-price"
+                  value="0"
+                  v-model.number="currentPriceFrom">
                 <span class="form__value">От</span>
               </label>
               <label class="form__label form__label--price" for="max-price">
-                <input class="form__input" type="text" name="max-price" value="12345">
+                <input
+                  class="form__input"
+                  type="text"
+                  name="max-price"
+                  value="12345"
+                  v-model.number="currentPriceTo">
                 <span class="form__value">До</span>
               </label>
             </fieldset>
             <fieldset class="form__block">
               <legend class="form__legend">Категория</legend>
               <label class="form__label form__label--select" for="category">
-                <select class="form__select" type="text" name="category">
+                <select
+                  class="form__select"
+                  type="text"
+                  name="category"
+                  v-model.number="currentCategoryId">
                   <option value="0">Все категории</option>
                   <option
                     v-for="category in categories"
@@ -169,10 +183,13 @@
                 </li>
               </ul>
             </fieldset>
-            <button class="filter__submit button button--primery" type="submit">
+            <button
+              class="filter__submit button button--primery"
+              type="submit">
               Применить
             </button>
-            <button class="filter__reset button button--second" type="button">
+            <button
+              class="filter__reset button button--second">
               Сбросить
             </button>
           </form>
@@ -184,9 +201,49 @@
 import categories from '@/data/categories';
 
 export default {
+  data() {
+    return {
+      currentPriceFrom: 0,
+      currentPriceTo: 0,
+      currentCategoryId: 0,
+    };
+  },
+
+  props: {
+    filterFrom: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    filterTo: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    filterCategoryId: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+  },
+
   computed: {
     categories() {
       return categories;
+    },
+  },
+
+  methods: {
+    submit() {
+      this.$emit('update:filterFrom', this.currentPriceFrom);
+      this.$emit('update:filterTo', this.currentPriceTo);
+      this.$emit('update:filterCategoryId', this.currentCategoryId);
+      console.log(this.currentCategoryId);
+    },
+    resetFilteres() {
+      this.currentPriceFrom = 0;
+      this.currentPriceTo = 0;
+      this.currentCategoryId = 0;
     },
   },
 };

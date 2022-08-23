@@ -11,7 +11,10 @@
       </div>
 
       <div class="content__catalog">
-        <ProductFilter/>
+        <ProductFilter
+          :filterFrom.sync="priceFrom"
+          :filterTo.sync="priceTo"
+          :filterCategoryId.sync="categoryId"/>
         <section class="catalog">
           <ProductList :products="products"/>
           <BasePagination v-model="page" :count="productsCount" :per-page="productsPerPage"/>
@@ -36,9 +39,9 @@ export default {
   },
   data() {
     return {
-      filterFrom: 0,
-      filterTo: 0,
-      filterCategoryId: 0,
+      priceFrom: 0,
+      priceTo: 0,
+      categoryId: 0,
 
       page: 1,
       productsPerPage: 3,
@@ -46,21 +49,12 @@ export default {
   },
   computed: {
     filteredProducts() {
-      let fulteredProducts;
+      let filteredProducts;
+      
+      // NOTE: Переписать скрипт фильтрации продуктов
 
-      fulteredProducts = this.filterFrom
-        ? products.filter((p) => p.price >= this.filterFrom)
-        : products;
-
-      fulteredProducts = this.filterTo
-        ? fulteredProducts.filter((p) => p.price <= this.filterTo)
-        : fulteredProducts;
-
-      fulteredProducts = this.filterCategoryId
-        ? fulteredProducts.filter((p) => p.categoryId === this.filterCategoryId)
-        : fulteredProducts;
-
-      return fulteredProducts;
+      console.log(filteredProducts);
+      return filteredProducts;
     },
     productsCount() {
       return this.filteredProducts.length;
