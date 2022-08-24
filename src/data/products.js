@@ -5,7 +5,7 @@ export default [
     colorsId: [6],
     title: 'Soup',
     price: 600,
-    image: 'img/soup.jpg',
+    // image: 'img/soup.jpg',
   },
   {
     id: 2,

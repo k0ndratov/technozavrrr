@@ -1,7 +1,8 @@
 <template>
   <div>
     <a class="catalog__pic" href="#">
-      <img :src="product.image" :alt="product.title">
+      <img :src="product.image" :alt="product.title" v-if="product.image">
+      <span v-else class="product__image-stub">😱😱😱</span>
     </a>
     <h3 class="catalog__title">
       <a href="#">
@@ -10,21 +11,16 @@
     </h3>
 
     <span class="catalog__price">
-      {{ product.price }} ₽
+      {{ product.price.toLocaleString() }} ₽
     </span>
 
-    <ul v-if="color" class="colors colors--black">
-      <li class="colors__item" v-for="el in product.colorsId" :key="el">
-        <label class="colors__label" :for="`product-color-${product.id}-${el}`">
-          <input
-            class="colors__radio sr-only"
-            type="radio"
-            :value="getBgColor(el)"
-            :name="`product-color-${product.id}`"
-            :id="`product-color-${product.id}-${el}`"
-            v-model="color">
-          <span class="colors__value" :style="`background-color: ${getBgColor(el)};`">
-          </span>
+    <ul v-if="currentColorValue" class="colors colors--black">
+      <li class="colors__item" v-for="colorId in product.colorsId" :key="colorId">
+        <label class="colors__label" :for="`product-color-${product.id}-${colorId}`">
+          <input class="colors__radio sr-only" type="radio" :value="getBgColor(colorId)"
+            :name="`product-color-${product.id}`" :id="`product-color-${product.id}-${colorId}`"
+            v-model="currentColorValue">
+          <span class="colors__value" :style="`background-color: ${getBgColor(colorId)};`"></span>
         </label>
       </li>
     </ul>
@@ -37,19 +33,21 @@ import colors from '@/data/colors';
 
 export default {
   name: 'ProductItem',
-  props: [
-    'product',
-  ],
+
+  props: {
+    product: { type: Object, required: true },
+  },
+
   data() {
     return {
-      color: null,
+      currentColorValue: null,
     };
   },
 
   created() {
     if (this.product.colorsId.length) {
       const [firstId] = this.product.colorsId;
-      this.color = colors.find((color) => color.id === firstId).bgcolor;
+      this.currentColorValue = this.getBgColor(firstId);
     }
   },
 
@@ -63,6 +61,14 @@ export default {
 </script>
 
 <style scoped>
+  .product__image-stub {
+    display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-color:rgb(245, 242, 242);
+  }
+
   .colors__value {
     border: 1px solid black;
   };
