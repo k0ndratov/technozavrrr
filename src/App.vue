@@ -55,7 +55,7 @@ export default {
       }
 
       if (this.priceTo > 0) {
-        filtered = filtered.filter((product) => product.price <= this.priceFromTo);
+        filtered = filtered.filter((product) => product.price <= this.priceTo);
       }
 
       if (this.categoryId > 0) {
