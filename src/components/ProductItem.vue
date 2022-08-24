@@ -1,63 +1,40 @@
 <template>
   <div>
     <a class="catalog__pic" href="#">
-    <img :src="product.image" :alt="product.title">
-  </a>
-  <h3 class="catalog__title">
-    <a href="#">
-      {{ product.title }}
+      <img :src="product.image" :alt="product.title">
     </a>
-  </h3>
+    <h3 class="catalog__title">
+      <a href="#">
+        {{ product.title }}
+      </a>
+    </h3>
 
-  <span class="catalog__price">
-    {{ product.price }} ₽
-  </span>
+    <span class="catalog__price">
+      {{ product.price }} ₽
+    </span>
 
-  <ul class="colors colors--black">
-    <li class="colors__item">
-      <label class="colors__label" :for="product.title+'inputId-1'">
-        <input
-          class="colors__radio sr-only"
-          type="radio"
-          value="#73B6EA"
-          :name="product.title+'color'"
-          :id="product.title+'inputId-1'"
-          v-model="color">
-        <span class="colors__value" style="background-color: #73B6EA;">
-        </span>
-      </label>
-    </li>
-    <li class="colors__item">
-      <label class="colors__label" :for="product.title+'inputId-2'">
-        <input
-          class="colors__radio sr-only"
-          type="radio"
-          value="#8BE000"
-          :name="product.title+'color'"
-          :id="product.title+'inputId-2'"
-          v-model="color">
-        <span class="colors__value" style="background-color: #8BE000;">
-        </span>
-      </label>
-    </li>
-    <li class="colors__item">
-      <label class="colors__label" :for="product.title+'inputId-3'">
-        <input
-          class="colors__radio sr-only"
-          type="radio"
-          value="#222"
-          :name="product.title+'color'"
-          :id="product.title+'inputId-3'"
-          v-model="color">
-        <span class="colors__value" style="background-color: #222;">
-        </span>
-      </label>
-    </li>
-  </ul>
+    <ul v-if="color" class="colors colors--black">
+      <li class="colors__item" v-for="el in product.colorsId" :key="el">
+        <label class="colors__label" :for="`product-color-${product.id}-${el}`">
+          <input
+            class="colors__radio sr-only"
+            type="radio"
+            :value="getBgColor(el)"
+            :name="`product-color-${product.id}`"
+            :id="`product-color-${product.id}-${el}`"
+            v-model="color">
+          <span class="colors__value" :style="`background-color: ${getBgColor(el)};`">
+          </span>
+        </label>
+      </li>
+    </ul>
+    <h6 v-else> Нет цветов </h6>
   </div>
 </template>
 
 <script>
+import colors from '@/data/colors';
+
 export default {
   name: 'ProductItem',
   props: [
@@ -65,8 +42,28 @@ export default {
   ],
   data() {
     return {
-      color: '#73B6EA',
+      color: null,
     };
+  },
+
+  created() {
+    if (this.product.colorsId.length) {
+      const [firstId] = this.product.colorsId;
+      this.color = colors.find((color) => color.id === firstId).bgcolor;
+    }
+  },
+
+  methods: {
+    getBgColor(id) {
+      const color = colors.find((el) => el.id === id);
+      return color.bgcolor;
+    },
   },
 };
 </script>
+
+<style scoped>
+  .colors__value {
+    border: 1px solid black;
+  };
+</style>

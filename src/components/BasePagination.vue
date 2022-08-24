@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     paginate(page) {
-      if (page > 0 && page <= this.perPage) this.$emit('paginate', page);
+      if (page > 0 && page <= this.pages) this.$emit('paginate', page);
     },
   },
 };
