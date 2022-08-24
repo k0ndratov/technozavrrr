@@ -189,7 +189,8 @@
               Применить
             </button>
             <button
-              class="filter__reset button button--second">
+              class="filter__reset button button--second"
+              @click="reset">
               Сбросить
             </button>
           </form>
@@ -233,17 +234,29 @@ export default {
     },
   },
 
+  watch: {
+    filterFrom(value) {
+      this.currentPriceFrom = value;
+    },
+    filterTo(value) {
+      this.currentPriceTo = value;
+    },
+    filterCategoryId(value) {
+      this.currentCategoryId = value;
+    },
+  },
+
   methods: {
     submit() {
       this.$emit('update:filterFrom', this.currentPriceFrom);
       this.$emit('update:filterTo', this.currentPriceTo);
       this.$emit('update:filterCategoryId', this.currentCategoryId);
-      console.log(this.currentCategoryId);
     },
-    resetFilteres() {
-      this.currentPriceFrom = 0;
-      this.currentPriceTo = 0;
-      this.currentCategoryId = 0;
+    reset() {
+      this.$emit('update:filterFrom', 0);
+      this.$emit('update:filterTo', 0);
+      this.$emit('update:filterCategoryId', 0);
+      console.log('its work');
     },
   },
 };

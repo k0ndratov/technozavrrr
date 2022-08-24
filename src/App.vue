@@ -49,12 +49,21 @@ export default {
   },
   computed: {
     filteredProducts() {
-      let filteredProducts;
-      
-      // NOTE: Переписать скрипт фильтрации продуктов
+      let filtered = products;
+      if (this.priceFrom > 0) {
+        filtered = filtered.filter((product) => product.price >= this.priceFrom);
+      }
 
-      console.log(filteredProducts);
-      return filteredProducts;
+      if (this.priceTo > 0) {
+        filtered = filtered.filter((product) => product.price <= this.priceFromTo);
+      }
+
+      if (this.categoryId > 0) {
+        filtered = filtered.filter((product) => product.categoryId === this.categoryId);
+      }
+
+      console.log(filtered);
+      return filtered;
     },
     productsCount() {
       return this.filteredProducts.length;
