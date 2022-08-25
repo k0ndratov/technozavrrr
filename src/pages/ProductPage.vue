@@ -279,5 +279,11 @@
 
 <script>
 export default {
+  props: {
+    pageParams: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>

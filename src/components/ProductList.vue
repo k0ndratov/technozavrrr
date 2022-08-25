@@ -1,7 +1,10 @@
 <template>
   <ul class="catalog__list" v-if="products.length">
     <li class="catalog__item" v-for="product in products" :key="product.id">
-      <ProductItem :product="product" />
+      <ProductItem
+        :product="product"
+        @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"
+      />
     </li>
   </ul>
   <span v-else class="catalog__stub">

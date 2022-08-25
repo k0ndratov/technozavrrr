@@ -1,6 +1,10 @@
 <template>
   <div>
-    <component :is="currentPageComponent" :page-params="this.currentPageParams"/>
+    <component
+      :is="currentPageComponent"
+      :page-params="this.currentPageParams"
+      @gotoPage="(pageName, pageParams) => gotoPage(pageName, pageParams)"
+    />
   </div>
 </template>
 
@@ -33,8 +37,8 @@ export default {
   },
 
   methods: {
-    gotoPage(page, pageParams) {
-      this.currentPage = page;
+    gotoPage(pageName, pageParams) {
+      this.currentPage = pageName;
       this.currentPageParams = pageParams || {};
     },
   },

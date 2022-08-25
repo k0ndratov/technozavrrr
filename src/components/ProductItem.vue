@@ -1,6 +1,10 @@
 <template>
   <div>
-    <a class="catalog__pic" href="#">
+    <a
+      class="catalog__pic"
+      href="#"
+      @click.prevent="$emit('gotoPage', 'product', {id: product.id})"
+    >
       <img :src="product.image" :alt="product.title" v-if="product.image">
       <span v-else class="product__image-stub">😱😱😱</span>
     </a>
