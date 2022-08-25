@@ -18,9 +18,7 @@
           :filterColorId.sync="colorId"
         />
         <section class="catalog">
-          <ProductList :products="products"
-            @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"
-          />
+          <ProductList :products="products"/>
           <BasePagination v-if="products.length && productsCount > productsPerPage" v-model="page"
             :count="productsCount" :per-page="productsPerPage" />
         </section>

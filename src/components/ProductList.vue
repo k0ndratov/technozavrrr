@@ -1,26 +1,25 @@
 <template>
   <ul class="catalog__list" v-if="products.length">
     <li class="catalog__item" v-for="product in products" :key="product.id">
-      <ProductItem
+      <ProductListItem
         :product="product"
-        @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"
       />
     </li>
   </ul>
-  <span v-else class="catalog__stub">
+  <span v-else class="cat./ProductListItem.vue">
     Кажется, все пропало 😱😱😱
   </span>
 </template>
 
 <script>
-import ProductItem from './ProductItem.vue';
+import ProductListItem from './ProductListItem.vue';
 
 export default {
   props: {
     products: { type: Array, required: true },
   },
   components: {
-    ProductItem,
+    ProductListItem,
   },
 };
 </script>

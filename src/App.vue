@@ -3,7 +3,6 @@
     <component
       :is="currentPageComponent"
       :page-params="this.currentPageParams"
-      @gotoPage="(pageName, pageParams) => gotoPage(pageName, pageParams)"
     />
   </div>
 </template>
