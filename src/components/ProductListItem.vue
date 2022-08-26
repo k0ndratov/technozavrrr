@@ -3,7 +3,7 @@
     <a
       class="catalog__pic"
       href="#"
-      @click.prevent="$emit('gotoPage', 'product', {id: product.id})"
+      @click.prevent="gotoPage('product', { id: product.id })"
     >
       <img :src="product.image" :alt="product.title" v-if="product.image">
       <span v-else class="product__image-stub">😱😱😱</span>
@@ -34,6 +34,7 @@
 
 <script>
 import colors from '@/data/colors';
+import eventBus from '@/eventBus';
 
 export default {
   name: 'ProductItem',
@@ -59,6 +60,10 @@ export default {
     getBgColor(id) {
       const color = colors.find((el) => el.id === id);
       return color.bgcolor;
+    },
+
+    gotoPage(pageName, pageParams) {
+      eventBus.$emit('gotoPage', pageName, pageParams);
     },
   },
 };

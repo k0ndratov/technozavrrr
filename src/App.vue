@@ -10,6 +10,7 @@
 <script>
 import MainPage from '@/pages/MainPage.vue';
 import ProductPage from '@/pages/ProductPage.vue';
+import eventBus from '@/eventBus';
 
 const routes = {
   main: 'MainPage',
@@ -40,6 +41,13 @@ export default {
       this.currentPage = pageName;
       this.currentPageParams = pageParams || {};
     },
+  },
+
+  created() {
+    console.log('create');
+    eventBus.$on('gotoPage', (pageName, pageParams) => {
+      this.gotoPage(pageName, pageParams);
+    });
   },
 };
 </script>
