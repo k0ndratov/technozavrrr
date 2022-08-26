@@ -48,38 +48,24 @@
                 <fieldset class="form__block">
                   <legend class="form__legend">Цвет:</legend>
                   <ul class="colors">
-                    <li class="colors__item">
+                    <li
+                      class="colors__item"
+                      v-for="(colors, index) in pageParams.colorsId"
+                      :key="index"
+                    >
                       <label class="colors__label" for="color-item">
                         <input
                           class="colors__radio sr-only"
                           type="radio"
-                          name="color-item"
-                          value="blue"
-                          checked=""
+                          :id="`color${index}`"
+                          :name="pageParams.id"
+                          :value="getBgColorHEX(pageParams.colorsId[index])"
                         />
-                        <span class="colors__value" style="background-color: #73b6ea"> </span>
-                      </label>
-                    </li>
-                    <li class="colors__item">
-                      <label class="colors__label" for="color-item">
-                        <input
-                          class="colors__radio sr-only"
-                          type="radio"
-                          name="color-item"
-                          value="yellow"
-                        />
-                        <span class="colors__value" style="background-color: #ffbe15"> </span>
-                      </label>
-                    </li>
-                    <li class="colors__item">
-                      <label class="colors__label" for="color-item">
-                        <input
-                          class="colors__radio sr-only"
-                          type="radio"
-                          name="color-item"
-                          value="gray"
-                        />
-                        <span class="colors__value" style="background-color: #939393"> </span>
+                        <span
+                          class="colors__value"
+                          :style="`background-color: ${getBgColorHEX(pageParams.colorsId[index])}`"
+                        >
+                        </span>
                       </label>
                     </li>
                   </ul>
@@ -205,7 +191,7 @@
 </template>
 
 <script>
-import { getCategoryName } from '@/helpers/customFunction';
+import { getCategoryName, getBgColorHEX } from '@/helpers/customFunction';
 
 export default {
   props: {
@@ -217,6 +203,7 @@ export default {
 
   methods: {
     getCategoryName,
+    getBgColorHEX,
   },
 };
 </script>
