@@ -1,14 +1,8 @@
 <template>
   <div>
-    <a
-      class="catalog__pic"
-      href="#"
-      @click.prevent="gotoPage('product', {
-        ...product,
-        categoryName: categories[product.id-1].title
-      })"
-    >
-    <!-- categories[product.id-1].title -->
+    <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {
+      ...product,
+    })">
       <img :src="product.image" :alt="product.title" v-if="product.image">
       <span v-else class="product__image-stub">😱😱😱</span>
     </a>
@@ -25,10 +19,13 @@
     <ul v-if="currentColorValue" class="colors colors--black">
       <li class="colors__item" v-for="colorId in product.colorsId" :key="colorId">
         <label class="colors__label" :for="`product-color-${product.id}-${colorId}`">
-          <input class="colors__radio sr-only" type="radio" :value="getBgColor(colorId)"
+          <input class="colors__radio sr-only" type="radio" :value="getBgColorHEX(colorId)"
             :name="`product-color-${product.id}`" :id="`product-color-${product.id}-${colorId}`"
             v-model="currentColorValue">
-          <span class="colors__value" :style="`background-color: ${getBgColor(colorId)};`"></span>
+          <span
+            class="colors__value"
+            :style="`background-color: ${getBgColorHEX(colorId)};`">
+          </span>
         </label>
       </li>
     </ul>
@@ -37,9 +34,8 @@
 </template>
 
 <script>
-import colors from '@/data/colors';
 import categories from '@/data/categories';
-import eventBus from '@/eventBus';
+import { gotoPage, getBgColorHEX } from '@/helpers/customFunction';
 
 export default {
   name: 'ProductItem',
@@ -63,19 +59,13 @@ export default {
   created() {
     if (this.product.colorsId.length) {
       const [firstId] = this.product.colorsId;
-      this.currentColorValue = this.getBgColor(firstId);
+      this.currentColorValue = this.getBgColorHEX(firstId);
     }
   },
 
   methods: {
-    getBgColor(id) {
-      const color = colors.find((el) => el.id === id);
-      return color.bgcolor;
-    },
-
-    gotoPage(pageName, pageParams) {
-      eventBus.$emit('gotoPage', pageName, pageParams);
-    },
+    gotoPage,
+    getBgColorHEX,
   },
 };
 </script>
