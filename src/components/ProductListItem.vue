@@ -1,9 +1,15 @@
 <template>
   <div>
-    <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {
-      ...product,
-    })">
-      <img :src="product.image" :alt="product.title" v-if="product.image">
+    <a
+      class="catalog__pic"
+      href="#"
+      @click.prevent="
+        gotoPage('product', {
+          ...product,
+        })
+      "
+    >
+      <img :src="product.image" :alt="product.title" v-if="product.image" />
       <span v-else class="product__image-stub">😱😱😱</span>
     </a>
     <h3 class="catalog__title">
@@ -12,24 +18,25 @@
       </a>
     </h3>
 
-    <span class="catalog__price">
-      {{ product.price.toLocaleString() }} ₽
-    </span>
+    <span class="catalog__price"> {{ product.price.toLocaleString() }} ₽ </span>
 
     <ul v-if="currentColorValue" class="colors colors--black">
       <li class="colors__item" v-for="colorId in product.colorsId" :key="colorId">
         <label class="colors__label" :for="`product-color-${product.id}-${colorId}`">
-          <input class="colors__radio sr-only" type="radio" :value="getBgColorHEX(colorId)"
-            :name="`product-color-${product.id}`" :id="`product-color-${product.id}-${colorId}`"
-            v-model="currentColorValue">
-          <span
-            class="colors__value"
-            :style="`background-color: ${getBgColorHEX(colorId)};`">
+          <input
+            class="colors__radio sr-only"
+            type="radio"
+            :value="getBgColorHEX(colorId)"
+            :name="`product-color-${product.id}`"
+            :id="`product-color-${product.id}-${colorId}`"
+            v-model="currentColorValue"
+          />
+          <span class="colors__value" :style="`background-color: ${getBgColorHEX(colorId)};`">
           </span>
         </label>
       </li>
     </ul>
-    <h6 v-else> Нет цветов </h6>
+    <h6 v-else>Нет цветов</h6>
   </div>
 </template>
 
@@ -71,15 +78,15 @@ export default {
 </script>
 
 <style scoped>
-  .product__image-stub {
-    display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      background-color:rgb(245, 242, 242);
-  }
+.product__image-stub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: rgb(245, 242, 242);
+}
 
-  .colors__value {
-    border: 1px solid black;
-  };
+.colors__value {
+  border: 1px solid black;
+}
 </style>
