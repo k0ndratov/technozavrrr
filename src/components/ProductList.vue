@@ -6,7 +6,7 @@
       />
     </li>
   </ul>
-  <span v-else class="cat./ProductListItem.vue">
+  <span v-else class="catalog__stub">
     Кажется, все пропало 😱😱😱
   </span>
 </template>

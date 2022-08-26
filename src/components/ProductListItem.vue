@@ -3,8 +3,12 @@
     <a
       class="catalog__pic"
       href="#"
-      @click.prevent="gotoPage('product', { id: product.id })"
+      @click.prevent="gotoPage('product', {
+        ...product,
+        categoryName: categories[product.id-1].title
+      })"
     >
+    <!-- categories[product.id-1].title -->
       <img :src="product.image" :alt="product.title" v-if="product.image">
       <span v-else class="product__image-stub">😱😱😱</span>
     </a>
@@ -34,6 +38,7 @@
 
 <script>
 import colors from '@/data/colors';
+import categories from '@/data/categories';
 import eventBus from '@/eventBus';
 
 export default {
@@ -47,6 +52,12 @@ export default {
     return {
       currentColorValue: null,
     };
+  },
+
+  computed: {
+    categories() {
+      return categories;
+    },
   },
 
   created() {

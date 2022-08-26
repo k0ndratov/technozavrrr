@@ -10,6 +10,7 @@
 <script>
 import MainPage from '@/pages/MainPage.vue';
 import ProductPage from '@/pages/ProductPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
 import eventBus from '@/eventBus';
 
 const routes = {
@@ -21,6 +22,7 @@ export default {
   components: {
     MainPage,
     ProductPage,
+    NotFoundPage,
   },
 
   data() {
@@ -44,7 +46,6 @@ export default {
   },
 
   created() {
-    console.log('create');
     eventBus.$on('gotoPage', (pageName, pageParams) => {
       this.gotoPage(pageName, pageParams);
     });
