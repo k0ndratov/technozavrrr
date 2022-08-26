@@ -43,7 +43,7 @@
             </h2>
             <div class="item__form">
               <form class="form" action="#" method="POST">
-                <b class="item__price"> {{ pageParams.price }} ₽ </b>
+                <b class="item__price"> {{ pageParams.price | numberFormat }} ₽ </b>
 
                 <fieldset class="form__block">
                   <legend class="form__legend">Цвет:</legend>
@@ -53,13 +53,14 @@
                       v-for="(colors, index) in pageParams.colorsId"
                       :key="index"
                     >
-                      <label class="colors__label" for="color-item">
+                      <label class="colors__label" :for="`color-${index}`">
                         <input
                           class="colors__radio sr-only"
                           type="radio"
-                          :id="`color${index}`"
+                          :id="`color-${index}`"
                           :name="pageParams.id"
                           :value="getBgColorHEX(pageParams.colorsId[index])"
+                          v-model="currentProductColor"
                         />
                         <span
                           class="colors__value"
@@ -191,9 +192,15 @@
 </template>
 
 <script>
-import { getCategoryName, getBgColorHEX } from '@/helpers/customFunction';
+import { getCategoryName, getBgColorHEX, numberFormat } from '@/helpers/customFunction';
 
 export default {
+  data() {
+    return {
+      currentProductColor: null,
+    };
+  },
+
   props: {
     pageParams: {
       type: Object,
@@ -201,9 +208,20 @@ export default {
     },
   },
 
+  filters: {
+    numberFormat,
+  },
+
+  created() {
+    if (this.pageParams.colorsId) {
+      this.currentProductColor = getBgColorHEX(this.pageParams.colorsId[0]);
+    }
+  },
+
   methods: {
     getCategoryName,
     getBgColorHEX,
+    numberFormat,
   },
 };
 </script>
