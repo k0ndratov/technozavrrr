@@ -2,12 +2,8 @@
   <div>
     <main class="content container">
       <div class="content__top content__top--catalog">
-        <h1 class="content__title">
-          Каталог
-        </h1>
-        <span class="content__info">
-          152 товара
-        </span>
+        <h1 class="content__title">Каталог</h1>
+        <span class="content__info"> 152 товара </span>
       </div>
 
       <div class="content__catalog">
@@ -18,9 +14,13 @@
           :filterColorId.sync="colorId"
         />
         <section class="catalog">
-          <ProductList :products="products"/>
-          <BasePagination v-if="products.length && productsCount > productsPerPage" v-model="page"
-            :count="productsCount" :per-page="productsPerPage" />
+          <ProductList :products="products" />
+          <BasePagination
+            v-if="products.length && productsCount > productsPerPage"
+            v-model="page"
+            :count="productsCount"
+            :per-page="productsPerPage"
+          />
         </section>
       </div>
     </main>
