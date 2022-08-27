@@ -1,17 +1,9 @@
 <template>
   <div>
-    <a
-      class="catalog__pic"
-      href="#"
-      @click.prevent="
-        gotoPage('product', {
-          ...product,
-        })
-      "
-    >
+    <router-link class="catalog__pic" :to="{ name: 'product', params: { id: product.id } }">
       <img :src="product.image" :alt="product.title" v-if="product.image" />
       <span v-else class="product__image-stub">😱😱😱</span>
-    </a>
+    </router-link>
     <h3 class="catalog__title">
       <a href="#">
         {{ product.title }}
@@ -42,7 +34,7 @@
 
 <script>
 import categories from '@/data/categories';
-import { gotoPage, getBgColorHEX } from '@/helpers/customFunction';
+import { getBgColorHEX } from '@/helpers/customFunction';
 
 export default {
   name: 'ProductItem',
@@ -71,7 +63,6 @@ export default {
   },
 
   methods: {
-    gotoPage,
     getBgColorHEX,
   },
 };

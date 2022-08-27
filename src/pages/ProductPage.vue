@@ -14,16 +14,16 @@
         <div class="content__top">
           <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
-              <a class="breadcrumbs__link" href="index.html"> Каталог </a>
+              <router-link class="breadcrumbs__link" :to="{ name: 'main' }"> Каталог </router-link>
             </li>
             <li class="breadcrumbs__item">
-              <a class="breadcrumbs__link" href="#">
-                {{ getCategoryName(pageParams.categoryId) }}
-              </a>
+              <router-link class="breadcrumbs__link" :to="{ name: 'main' }">
+                {{ getCategoryName(product.categoryId) }}
+              </router-link>
             </li>
             <li class="breadcrumbs__item">
               <a class="breadcrumbs__link">
-                {{ pageParams.title }}
+                {{ product.title }}
               </a>
             </li>
           </ul>
@@ -32,25 +32,25 @@
         <section class="item">
           <div class="item__pics pics">
             <div class="pics__wrapper">
-              <img width="570" height="570" :src="pageParams.image" :alt="pageParams.title" />
+              <img width="570" height="570" :src="product.image" :alt="product.title" />
             </div>
           </div>
 
           <div class="item__info">
-            <span class="item__code">Артикул: {{ pageParams.id }}</span>
+            <span class="item__code">Артикул: {{ product.id }}</span>
             <h2 class="item__title">
-              {{ pageParams.title }}
+              {{ product.title }}
             </h2>
             <div class="item__form">
               <form class="form" action="#" method="POST">
-                <b class="item__price"> {{ pageParams.price | numberFormat }} ₽ </b>
+                <b class="item__price"> {{ product.price | numberFormat }} ₽ </b>
 
                 <fieldset class="form__block">
                   <legend class="form__legend">Цвет:</legend>
                   <ul class="colors">
                     <li
                       class="colors__item"
-                      v-for="(colors, index) in pageParams.colorsId"
+                      v-for="(colors, index) in product.colorsId"
                       :key="index"
                     >
                       <label class="colors__label" :for="`color-${index}`">
@@ -58,13 +58,13 @@
                           class="colors__radio sr-only"
                           type="radio"
                           :id="`color-${index}`"
-                          :name="pageParams.id"
-                          :value="getBgColorHEX(pageParams.colorsId[index])"
+                          :name="product.id"
+                          :value="getBgColorHEX(product.colorsId[index])"
                           v-model="currentProductColor"
                         />
                         <span
                           class="colors__value"
-                          :style="`background-color: ${getBgColorHEX(pageParams.colorsId[index])}`"
+                          :style="`background-color: ${getBgColorHEX(product.colorsId[index])}`"
                         >
                         </span>
                       </label>
@@ -192,7 +192,8 @@
 </template>
 
 <script>
-import { getCategoryName, getBgColorHEX, numberFormat } from '@/helpers/customFunction';
+// eslint-disable-next-line
+import { getProduct, getCategoryName, getBgColorHEX, numberFormat } from '@/helpers/customFunction';
 
 export default {
   data() {
@@ -201,10 +202,9 @@ export default {
     };
   },
 
-  props: {
-    pageParams: {
-      type: Object,
-      required: true,
+  computed: {
+    product() {
+      return getProduct(+this.$route.params.id);
     },
   },
 
@@ -213,8 +213,14 @@ export default {
   },
 
   created() {
-    if (this.pageParams.colorsId) {
-      this.currentProductColor = getBgColorHEX(this.pageParams.colorsId[0]);
+    if (this.product.colorsId) {
+      this.currentProductColor = getBgColorHEX(this.product.colorsId[0]);
+    }
+  },
+
+  beforeUpdate() {
+    if (this.product.colorsId) {
+      this.currentProductColor = getBgColorHEX(this.product.colorsId[0]);
     }
   },
 
