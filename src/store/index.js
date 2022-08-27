@@ -5,7 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   getters: {},
-  state: {},
+  state: {
+    cartProduct: [
+      {
+        productId: 1,
+      },
+      {
+        productId: 2,
+      },
+    ],
+  },
   actions: {},
   mutations: {},
 });
