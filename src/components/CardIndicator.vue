@@ -1,13 +1,13 @@
 <template>
   <div>
-    <a class="header__cart" href="cart.html" aria-label="Корзина с товарами">
+    <router-link class="header__cart" aria-label="Корзина с товарами" :to="{ name: 'cart' }">
       <svg width="30" height="21" fill="currentColor">
         <use xlink:href="#icon-cart"></use>
       </svg>
       <span class="header__count" aria-label="Количество товаров">
         {{ $store.state.cartProduct.length }}
       </span>
-    </a>
+    </router-link>
   </div>
 </template>
 
