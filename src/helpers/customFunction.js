@@ -5,6 +5,4 @@ import categories from '@/data/categories';
 export const gotoPage = (pageName, pageParams) => eventBus.$emit('gotoPage', pageName, pageParams);
 export const getBgColorHEX = (id) => colors.find((el) => el.id === id).bgcolor;
 export const getCategoryName = (id) => categories.find((el) => el.id === id).title;
-export function numberFormat(value) {
-  return new Intl.NumberFormat().format(value);
-}
+export const numberFormat = (value) => new Intl.NumberFormat().format(value);
