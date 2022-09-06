@@ -50,21 +50,21 @@
                   <ul class="colors">
                     <li
                       class="colors__item"
-                      v-for="(colors, index) in product.colorsId"
-                      :key="index"
+                      v-for="colorId in product.colorsId"
+                      :key="colorId"
                     >
-                      <label class="colors__label" :for="`color-${index}`">
+                      <label class="colors__label" :for="`color-${colorId}`">
                         <input
                           class="colors__radio sr-only"
                           type="radio"
-                          :id="`color-${index}`"
+                          :id="`color-${colorId}`"
                           :name="product.id"
-                          :value="getBgColorHEX(product.colorsId[index])"
-                          v-model="currentProductColor"
+                          :value="colorId"
+                          v-model="currentProductColorId"
                         />
                         <span
                           class="colors__value"
-                          :style="`background-color: ${getBgColorHEX(product.colorsId[index])}`"
+                          :style="`background-color: ${getBgColorHEX(colorId)}`"
                         >
                         </span>
                       </label>
@@ -114,28 +114,7 @@
                 </fieldset>
 
                 <div class="item__row">
-                  <div class="form__counter">
-                    <button type="button" aria-label="Убрать один товар">
-                      <svg width="12" height="12" fill="currentColor">
-                        <use xlink:href="#icon-minus"></use>
-                      </svg>
-                    </button>
-                    <label for="count">
-                      <input
-                        type="text"
-                        value="1"
-                        name="count"
-                        id="count"
-                        v-model.number="amound"
-                      />
-                    </label>
-                    <button type="button" aria-label="Добавить один товар">
-                      <svg width="12" height="12" fill="currentColor">
-                        <use xlink:href="#icon-plus"></use>
-                      </svg>
-                    </button>
-                  </div>
-
+                  <ProductInput v-model="amound"/>
                   <button class="button button--primery" type="submit">В корзину</button>
                 </div>
               </form>
@@ -200,12 +179,16 @@
 <script>
 // eslint-disable-next-line
 import { getProduct, getCategoryName, getBgColorHEX, numberFormat } from '@/helpers/customFunction';
+import ProductInput from '@/components/ProductInput.vue'
 
 export default {
+  components: {
+    ProductInput,
+  },
   data() {
     return {
-      currentProductColor: null,
-      amound: 1,
+      amound: null,
+      currentProductColorId: null,
     };
   },
 
@@ -220,14 +203,9 @@ export default {
   },
 
   created() {
+    document.documentElement.scrollTop = 0;
     if (this.product.colorsId) {
-      this.currentProductColor = getBgColorHEX(this.product.colorsId[0]);
-    }
-  },
-
-  beforeUpdate() {
-    if (this.product.colorsId) {
-      this.currentProductColor = getBgColorHEX(this.product.colorsId[0]);
+      [this.currentProductColorId] = this.product.colorsId;
     }
   },
 
@@ -238,7 +216,7 @@ export default {
     addProductToCard() {
       this.$store.commit('addProductToCard', {
         productId: this.product.id,
-        colorId: this.currentProductColor,
+        colorId: this.currentProductColorId,
         amound: this.amound,
       });
     },
