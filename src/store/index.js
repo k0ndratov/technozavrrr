@@ -7,13 +7,7 @@ export default new Vuex.Store({
   getters: {},
 
   state: {
-    cartProduct: [
-      {
-        productId: 1,
-        colorId: 1,
-        amound: 2,
-      },
-    ],
+    cartProduct: [],
   },
 
   actions: {},
