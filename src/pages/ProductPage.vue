@@ -177,8 +177,13 @@
 </template>
 
 <script>
-// eslint-disable-next-line
-import { getProduct, getCategoryName, getBgColorHEX, numberFormat } from '@/helpers/customFunction';
+import {
+  getProduct,
+  getCategoryName,
+  getBgColorHEX,
+  numberFormat,
+  scrollUp,
+} from '@/helpers/customFunction';
 import ProductInput from '@/components/ProductInput.vue'
 
 export default {
@@ -203,7 +208,7 @@ export default {
   },
 
   created() {
-    document.documentElement.scrollTop = 0;
+    scrollUp();
     if (this.product.colorsId) {
       [this.currentProductColorId] = this.product.colorsId;
     }
