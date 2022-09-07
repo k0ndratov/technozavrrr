@@ -184,7 +184,7 @@ import {
   numberFormat,
   scrollUp,
 } from '@/helpers/customFunction';
-import ProductInput from '@/components/ProductInput.vue'
+import ProductInput from '@/components/ProductInput.vue';
 
 export default {
   components: {

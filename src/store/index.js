@@ -11,10 +11,11 @@ export default new Vuex.Store({
 
   getters: {
     cartDetailProduct(state) {
-      return state.cartProduct.map(item => ({
-          product: products.find(p => p.id === item.productId),
-          amound: item.amound,
-        }));
+      return state.cartProduct.map((item) => ({
+        product: products.find((p) => p.id === item.productId),
+        amound: item.amound,
+        colorId: item.colorId,
+      }));
     },
   },
 

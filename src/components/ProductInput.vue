@@ -33,34 +33,34 @@
 </template>
 
 <script>
-    export default {
-      data() {
-        return {
-          currentAmound: null,
-        };
-      },
-      props: {
-        value: {
-          required: true,
-        },
-      },
-      created() {
-        this.currentAmound = this.value || 1;
-      },
-      methods: {
-        increaseAmound() {
-          this.currentAmound += 1;
-        },
-        decreaseAmound() {
-          if (this.currentAmound > 1) this.currentAmound -= 1;
-        },
-      },
-      watch: {
-        currentAmound(value) {
-          this.$emit('input', value);
-        }
-      },
+export default {
+  data() {
+    return {
+      currentAmound: null,
     };
+  },
+  props: {
+    value: {
+      required: true,
+    },
+  },
+  created() {
+    this.currentAmound = this.value || 1;
+  },
+  methods: {
+    increaseAmound() {
+      this.currentAmound += 1;
+    },
+    decreaseAmound() {
+      if (this.currentAmound > 1) this.currentAmound -= 1;
+    },
+  },
+  watch: {
+    currentAmound(value) {
+      this.$emit('input', value);
+    },
+  },
+};
 </script>
 
 <style scoped>

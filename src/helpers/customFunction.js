@@ -8,4 +8,4 @@ export const getCategoryName = (id) => categories.find((el) => el.id === id).tit
 export const numberFormat = (value) => new Intl.NumberFormat().format(value);
 export function scrollUp() {
   document.documentElement.scrollTop = 0;
-};
+}
