@@ -1,13 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import products from '@/data/products';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  getters: {},
-
   state: {
     cartProduct: [],
+  },
+
+  getters: {
+    cartDetailProduct(state) {
+      return state.cartProduct.map(item => ({
+          product: products.find(p => p.id === item.productId),
+          amound: item.amound,
+        }));
+    },
   },
 
   actions: {},
