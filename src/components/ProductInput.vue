@@ -64,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+  .form__counter {
+    border: 1px solid black;
+  }
+
   .cursorPoiner {
     cursor: pointer;
   }

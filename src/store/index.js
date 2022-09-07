@@ -17,6 +17,15 @@ export default new Vuex.Store({
         colorId: item.colorId,
       }));
     },
+
+    totalPrice(state, getters) {
+      return getters.cartDetailProduct.reduce((a, i) => (i.product.price * i.amound) + a, 0);
+    },
+
+    totalProductsCount(state, getters) {
+      const count = getters.cartDetailProduct.reduce((a, i) => i.amound + a, 0);
+      return count;
+    },
   },
 
   actions: {},
