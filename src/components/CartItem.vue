@@ -13,13 +13,13 @@
 
     <ProductInput v-model="amound" />
 
-    <b class="product__price"> {{ (item.product.price * item.amound) | numberFormat }} ₽ </b>
+    <b class="product__price"> <AnimatedNumber :number="item.product.price * item.amound" /> ₽ </b>
 
     <button
       class="product__del button-del"
       type="button"
       aria-label="Удалить товар из корзины"
-      @click.prevent="deleteCartProduct(item.product.id)"
+      @click.prevent="deleteCartProduct({ producrId: item.product.id, colorId: item.colorId })"
     >
       <svg width="20" height="20" fill="currentColor">
         <use xlink:href="#icon-close"></use>
@@ -32,10 +32,12 @@
 import ProductInput from '@/components/ProductInput.vue';
 import { getBgColorHEX, numberFormat } from '@/helpers/customFunction';
 import { mapMutations } from 'vuex';
+import AnimatedNumber from './AnimatedNumber.vue';
 
 export default {
   components: {
     ProductInput,
+    AnimatedNumber,
   },
 
   filters: {

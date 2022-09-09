@@ -49,8 +49,11 @@ export default new Vuex.Store({
       }
     },
 
-    deleteCartProduct(state, productId) {
-      state.cartProduct = state.cartProduct.filter((product) => product.productId !== productId);
+    deleteCartProduct(state, { productId, colorId }) {
+      console.log(colorId);
+      state.cartProduct = state.cartProduct.filter(
+        (product) => product.productId !== productId && product.colorId !== colorId,
+      );
     },
   },
 });
