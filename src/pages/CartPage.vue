@@ -67,7 +67,4 @@ export default {
 .product__price {
   text-align: center;
 }
-.bordered {
-  border: 1px solid lightgray;
-}
 </style>

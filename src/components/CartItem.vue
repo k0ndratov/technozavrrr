@@ -75,4 +75,7 @@ export default {
 .button-del {
   cursor: pointer;
 }
+.bordered {
+  border: 1px solid lightgray;
+}
 </style>
