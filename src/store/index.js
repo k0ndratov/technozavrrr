@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
 
     totalPrice(state, getters) {
-      return getters.cartDetailProduct.reduce((a, i) => (i.product.price * i.amound) + a, 0);
+      return getters.cartDetailProduct.reduce((a, i) => i.product.price * i.amound + a, 0);
     },
 
     totalProductsCount(state, getters) {
@@ -40,6 +40,17 @@ export default new Vuex.Store({
       } else {
         this.state.cartProduct.push({ productId, colorId, amound });
       }
+    },
+
+    updateCartProductAmound(state, { productId, amound }) {
+      const product = this.state.cartProduct.find((prod) => prod.productId === productId);
+      if (product) {
+        product.amound = amound;
+      }
+    },
+
+    deleteCartProduct(state, productId) {
+      state.cartProduct = state.cartProduct.filter((product) => product.productId !== productId);
     },
   },
 });
