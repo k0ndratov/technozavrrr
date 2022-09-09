@@ -40,7 +40,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
-import { numberFormat } from '@/helpers/customFunction';
+import { numberFormat } from '@/helpers/custom_function';
 import AnimatedNumber from '@/components/AnimatedNumber.vue';
 
 export default {

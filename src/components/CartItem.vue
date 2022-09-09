@@ -30,9 +30,9 @@
 
 <script>
 import ProductInput from '@/components/ProductInput.vue';
-import { getBgColorHEX, numberFormat } from '@/helpers/customFunction';
+import { getBgColorHEX, numberFormat } from '@/helpers/custom_function';
 import { mapMutations } from 'vuex';
-import AnimatedNumber from './AnimatedNumber.vue';
+import AnimatedNumber from '@/components/AnimatedNumber.vue';
 
 export default {
   components: {

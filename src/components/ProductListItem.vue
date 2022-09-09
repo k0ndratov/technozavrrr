@@ -34,7 +34,7 @@
 
 <script>
 import categories from '@/data/categories';
-import { getBgColorHEX } from '@/helpers/customFunction';
+import { getBgColorHEX } from '@/helpers/custom_function';
 
 export default {
   name: 'ProductItem',

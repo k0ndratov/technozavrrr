@@ -183,7 +183,7 @@ import {
   getBgColorHEX,
   numberFormat,
   scrollUp,
-} from '@/helpers/customFunction';
+} from '@/helpers/custom_function';
 import ProductInput from '@/components/ProductInput.vue';
 
 export default {

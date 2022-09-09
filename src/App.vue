@@ -14,7 +14,7 @@
         </a>
 
         <a class="header__tel" href="tel:8 800 600 90 09"> 8 800 600 90 09 </a>
-        <CardIndicator />
+        <CartIndicator />
       </div>
     </header>
     <router-view />
@@ -102,11 +102,11 @@
 </template>
 
 <script>
-import CardIndicator from '@/components/CardIndicator.vue';
+import CartIndicator from '@/components/CartIndicator.vue';
 
 export default {
   components: {
-    CardIndicator,
+    CartIndicator,
   },
 };
 </script>

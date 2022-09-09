@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { numberFormat } from '@/helpers/customFunction';
+import { numberFormat } from '@/helpers/custom_function';
 
 export default {
   data() {
