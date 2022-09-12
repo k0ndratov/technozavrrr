@@ -15,9 +15,9 @@
         />
         <section class="catalog">
           <ProductList v-if="productsData" :products="products" />
-          <BaseLoader v-else style="margin: 0 auto;"/>
+          <BaseLoader v-else style="margin: 0 auto" />
           <div v-if="productsLoadingFailed">
-            Произошла ошибка.<br>
+            Произошла ошибка.<br />
             <button @click.prevent="loadProducts">Обновить</button>
           </div>
           <BasePagination
@@ -83,16 +83,17 @@ export default {
   methods: {
     loadProducts() {
       this.productsLoadingFailed = false;
-      axios.get(`${API_BASE_URL}products`, {
-        params: {
-          page: this.page,
-          limit: this.productsPerPage,
-          minPrice: this.filterParams.priceFrom,
-          maxPrice: this.filterParams.priceTo,
-          categoryId: this.filterParams.categoryId,
-          colorId: this.filterParams.colorId,
-        },
-      })
+      axios
+        .get(`${API_BASE_URL}products`, {
+          params: {
+            page: this.page,
+            limit: this.productsPerPage,
+            minPrice: this.filterParams.priceFrom,
+            maxPrice: this.filterParams.priceTo,
+            categoryId: this.filterParams.categoryId,
+            colorId: this.filterParams.colorId,
+          },
+        })
         .then((response) => {
           this.productsData = response.data;
         })
@@ -108,7 +109,9 @@ export default {
     },
 
     filterParams: {
-      handler() { this.loadProducts(); },
+      handler() {
+        this.loadProducts();
+      },
       deep: true,
     },
   },

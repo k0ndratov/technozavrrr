@@ -38,11 +38,7 @@
               <fieldset class="form__block">
                 <legend class="form__legend">Цвет:</legend>
                 <ul class="colors">
-                  <li
-                    class="colors__item"
-                    v-for="color in product.colors"
-                    :key="color.id"
-                  >
+                  <li class="colors__item" v-for="color in product.colors" :key="color.id">
                     <label class="colors__label" :for="`${product.id}${color.id}`">
                       <input
                         class="colors__radio sr-only"
@@ -52,10 +48,7 @@
                         :value="color.id"
                         v-model="currentProductColorId"
                       />
-                      <span
-                        class="colors__value"
-                        :style="`background-color: ${color.code}`"
-                      >
+                      <span class="colors__value" :style="`background-color: ${color.code}`">
                       </span>
                     </label>
                   </li>
@@ -104,7 +97,7 @@
               </fieldset>
 
               <div class="item__row">
-                <ProductInput v-model="amound"/>
+                <ProductInput v-model="amound" />
                 <button class="button button--primery" type="submit">В корзину</button>
               </div>
             </form>
@@ -148,15 +141,15 @@
             </p>
             <h3>Дизайн</h3>
             <p>
-              Велокомпьютер Wahoo ELEMNT BOLT очень компактный. Размеры устройства составляют
-              всего 74,6 x 47,3 x 22,1 мм. что не превышает габариты смартфона. Корпус гаджета
-              выполнен из черного пластика. На обращенной к пользователю стороне расположен
-              дисплей диагональю 56 мм. На дисплей выводятся координаты и скорость, а также
-              полученная со смартфона и синхронизированных датчиков информация: интенсивность,
-              скорость вращения педалей, пульс и т.д. (датчики не входят в комплект поставки).
-              Корпус велокомпьютера имеет степень защиты от влаги IPX7. Это означает, что
-              устройство не боится пыли, а также выдерживает кратковременное (до 30 минут)
-              погружение в воду на глубину не более 1 метра.
+              Велокомпьютер Wahoo ELEMNT BOLT очень компактный. Размеры устройства составляют всего
+              74,6 x 47,3 x 22,1 мм. что не превышает габариты смартфона. Корпус гаджета выполнен из
+              черного пластика. На обращенной к пользователю стороне расположен дисплей диагональю
+              56 мм. На дисплей выводятся координаты и скорость, а также полученная со смартфона и
+              синхронизированных датчиков информация: интенсивность, скорость вращения педалей,
+              пульс и т.д. (датчики не входят в комплект поставки). Корпус велокомпьютера имеет
+              степень защиты от влаги IPX7. Это означает, что устройство не боится пыли, а также
+              выдерживает кратковременное (до 30 минут) погружение в воду на глубину не более 1
+              метра.
             </p>
           </div>
         </div>
@@ -167,10 +160,7 @@
 </template>
 
 <script>
-import {
-  numberFormat,
-  scrollUp,
-} from '@/helpers/custom_function';
+import { numberFormat, scrollUp } from '@/helpers/custom_function';
 import ProductInput from '@/components/ProductInput.vue';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
@@ -202,6 +192,12 @@ export default {
     },
   },
 
+  watch: {
+    product() {
+      this.currentProductColorId = this.product.colors[0].id;
+    },
+  },
+
   filters: {
     numberFormat,
   },
@@ -224,7 +220,8 @@ export default {
 
     loadProduct() {
       this.productDataLoadingFailed = false;
-      axios.get(`${API_BASE_URL}products/${this.$route.params.id}`)
+      axios
+        .get(`${API_BASE_URL}products/${this.$route.params.id}`)
         .then((response) => {
           this.productData = response.data;
         })
