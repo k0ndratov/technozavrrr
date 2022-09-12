@@ -12,29 +12,27 @@
 
     <span class="catalog__price"> {{ product.price.toLocaleString() }} ₽ </span>
 
-    <ul v-if="currentColorValue" class="colors colors--black">
-      <li class="colors__item" v-for="colorId in product.colorsId" :key="colorId">
-        <label class="colors__label" :for="`product-color-${product.id}-${colorId}`">
+    <ul class="colors colors--black">
+      <li class="colors__item" v-for="color in product.colors" :key="color.id">
+        <label class="colors__label" :for="`${product.id}${color.id}`">
           <input
             class="colors__radio sr-only"
             type="radio"
-            :value="getBgColorHEX(colorId)"
-            :name="`product-color-${product.id}`"
-            :id="`product-color-${product.id}-${colorId}`"
+            :value="color.id"
+            :name="product.id"
+            :id="`${product.id}${color.id}`"
             v-model="currentColorValue"
           />
-          <span class="colors__value" :style="`background-color: ${getBgColorHEX(colorId)};`">
+          <span class="colors__value" :style="`background-color:${ color.code };`">
           </span>
         </label>
       </li>
     </ul>
-    <h6 v-else>Нет цветов</h6>
   </div>
 </template>
 
 <script>
 import categories from '@/data/categories';
-import { getBgColorHEX } from '@/helpers/custom_function';
 
 export default {
   name: 'ProductItem',
@@ -56,14 +54,9 @@ export default {
   },
 
   created() {
-    if (this.product.colorsId.length) {
-      const [firstId] = this.product.colorsId;
-      this.currentColorValue = this.getBgColorHEX(firstId);
+    if (this.product.colors) {
+      this.currentColorValue = this.product.colors[0].id;
     }
-  },
-
-  methods: {
-    getBgColorHEX,
   },
 };
 </script>

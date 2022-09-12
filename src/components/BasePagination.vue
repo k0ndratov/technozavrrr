@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { scrollUp } from '@/helpers/custom_function';
 
 export default {
   model: {
@@ -53,7 +54,10 @@ export default {
   },
   methods: {
     paginate(page) {
-      if (page > 0 && page <= this.pages) this.$emit('paginate', page);
+      if (page > 0 && page <= this.pages) {
+        this.$emit('paginate', page);
+        scrollUp();
+      }
     },
   },
 };
