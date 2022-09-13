@@ -1,12 +1,12 @@
 <template>
   <li class="cart__item product">
     <div class="product__pic">
-      <img :src="item.product.image" width="120" height="120" :alt="item.product.title" />
+      <img :src="item.product.image.file.url" width="120" height="120" :alt="item.product.title" />
     </div>
     <h3 class="product__title">{{ item.product.title }}</h3>
     <p class="product__info product__info--color">
       <span>
-        <i :style="`background-color: ${getBgColorHEX(item.colorId)}`" class="bordered"> </i>
+        <!-- <i :style="`background-color: ???`" class="bordered"> </i> -->
       </span>
     </p>
     <span class="product__code"> Артикул: {{ item.product.id }} </span>
@@ -79,5 +79,8 @@ export default {
 }
 .bordered {
   border: 1px solid lightgray;
+}
+.product__price {
+  margin: 0 auto;
 }
 </style>

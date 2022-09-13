@@ -1,21 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import products from '@/data/products';
+import axios from 'axios';
+import { API_BASE_URL } from '@/config';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cartProduct: [],
+    cartProduct: null,
+
+    userAccessKey: null,
+    cartProductsData: [],
   },
 
   getters: {
     cartDetailProduct(state) {
-      return state.cartProduct.map((item) => ({
-        product: products.find((p) => p.id === item.productId),
-        amound: item.amound,
-        colorId: item.colorId,
-      }));
+      return state.cartProduct;
     },
 
     totalPrice(state, getters) {
@@ -27,8 +27,6 @@ export default new Vuex.Store({
       return count;
     },
   },
-
-  actions: {},
 
   mutations: {
     addProductToCard(state, { productId, colorId, amound }) {
@@ -50,10 +48,44 @@ export default new Vuex.Store({
     },
 
     deleteCartProduct(state, { productId, colorId }) {
-      console.log(colorId);
       state.cartProduct = state.cartProduct.filter(
         (product) => product.productId !== productId && product.colorId !== colorId,
       );
+    },
+
+    updateUserAccessKey(state, userAccessKey) {
+      state.userAccessKey = userAccessKey;
+    },
+
+    updateCartProductsData(state, items) {
+      state.cartProductsData = items;
+    },
+
+    syncCartProduct(state) {
+      state.cartProduct = state.cartProductsData.map((item) => ({
+        product: item.product,
+        amound: item.quantity,
+        colorId: null,
+      }));
+    },
+  },
+
+  actions: {
+    loadCart(context) {
+      axios
+        .get(`${API_BASE_URL}baskets`, {
+          params: {
+            userAccessKey: context.state.userAccessKey,
+          },
+        })
+        .then((response) => {
+          if (!context.state.userAccessKey) {
+            context.commit('updateUserAccessKey', response.data.user.accessKey);
+            localStorage.setItem('userAccessKey', response.data.user.accessKey);
+          }
+          context.commit('updateCartProductsData', response.data.items);
+          context.commit('syncCartProduct');
+        });
     },
   },
 });

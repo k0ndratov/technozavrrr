@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="content container">
+    <main v-if="products" class="content container">
       <div class="content__top">
         <ul class="breadcrumbs">
           <li class="breadcrumbs__item">
@@ -22,7 +22,6 @@
               <CartItem v-for="(item, index) in products" :key="index" :item="item" />
             </ul>
           </div>
-
           <div class="cart__block">
             <p class="cart__desc">Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе</p>
             <p class="cart__price">Итого: <AnimatedNumber :number="totalPrice" /> ₽</p>
@@ -34,6 +33,7 @@
         </form>
       </section>
     </main>
+    <BaseLoader v-else/>
   </div>
 </template>
 
@@ -42,11 +42,13 @@ import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
 import { numberFormat } from '@/helpers/custom_function';
 import AnimatedNumber from '@/components/AnimatedNumber.vue';
+import BaseLoader from '@/components/BaseLoader.vue';
 
 export default {
   components: {
     CartItem,
     AnimatedNumber,
+    BaseLoader,
   },
 
   computed: {

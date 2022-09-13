@@ -10,10 +10,9 @@
         <use xlink:href="#icon-minus"></use>
       </svg>
     </button>
-    <label for="count">
+    <label for="count" >
       <input
         type="text"
-        value="1"
         name="count"
         id="count"
         v-model.number="currentAmound"
@@ -34,6 +33,8 @@
 
 <script>
 export default {
+  name: 'ProductInput',
+
   data() {
     return {
       currentAmound: null,
