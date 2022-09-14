@@ -12,10 +12,12 @@
     </button>
     <label for="count" >
       <input
-        type="text"
+        type="number"
         name="count"
         id="count"
         v-model.number="currentAmound"
+        step="10"
+        min="1"
       />
     </label>
     <button
@@ -55,6 +57,16 @@ export default {
     decreaseAmound() {
       if (this.currentAmound > 1) this.currentAmound -= 1;
     },
+    validate(evt) {
+      const theEvent = evt || window.event;
+      let key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+      const regex = /[0-9]|\./;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+    },
   },
   watch: {
     currentAmound(value) {
@@ -71,5 +83,15 @@ export default {
 
   .cursorPoiner {
     cursor: pointer;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
   }
 </style>

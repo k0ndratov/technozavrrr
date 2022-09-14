@@ -11,15 +11,15 @@
     </p>
     <span class="product__code"> Артикул: {{ item.product.id }} </span>
 
-    <ProductInput v-model="amound" />
+    <ProductInput v-model="amount" />
 
-    <b class="product__price"> <AnimatedNumber :number="item.product.price * item.amound" /> ₽ </b>
+    <b class="product__price"> <AnimatedNumber :number="item.product.price * item.amount" /> ₽ </b>
 
     <button
       class="product__del button-del"
       type="button"
       aria-label="Удалить товар из корзины"
-      @click.prevent="deleteCartProduct({ producrId: item.product.id, colorId: item.colorId })"
+      @click.prevent="deleteProduct"
     >
       <svg width="20" height="20" fill="currentColor">
         <use xlink:href="#icon-close"></use>
@@ -31,7 +31,7 @@
 <script>
 import ProductInput from '@/components/ProductInput.vue';
 import { getBgColorHEX, numberFormat } from '@/helpers/custom_function';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import AnimatedNumber from '@/components/AnimatedNumber.vue';
 
 export default {
@@ -52,15 +52,15 @@ export default {
   },
 
   computed: {
-    amound: {
+    amount: {
       get() {
-        return this.item.amound;
+        return this.item.amount;
       },
 
       set(value) {
-        return this.$store.commit('updateCartProductAmound', {
+        this.updateCartProductAmound({
           productId: this.item.product.id,
-          amound: value,
+          amount: value,
         });
       },
     },
@@ -68,7 +68,11 @@ export default {
 
   methods: {
     getBgColorHEX,
-    ...mapMutations(['deleteCartProduct']),
+    ...mapActions(['updateCartProductAmound', 'deleteCartProduct']),
+
+    deleteProduct() {
+      this.deleteCartProduct({ productId: this.item.product.id });
+    },
   },
 };
 </script>

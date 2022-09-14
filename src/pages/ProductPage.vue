@@ -32,7 +32,7 @@
             {{ product.title }}
           </h2>
           <div class="item__form">
-            <form class="form" action="#" method="POST" @submit.prevent="addProductToCard">
+            <form class="form" action="#" method="POST" @submit.prevent="addToCard">
               <b class="item__price"> {{ product.price | numberFormat }} ₽ </b>
 
               <fieldset class="form__block">
@@ -95,13 +95,18 @@
                   </li>
                 </ul>
               </fieldset>
-
               <div class="item__row">
-                <ProductInput v-model="amound" />
-                <button class="button button--primery" type="submit">В корзину</button>
+                <ProductInput v-model="amount" />
+                <button
+                  class="button button--primery"
+                  type="submit">
+                  В корзину
+                </button>
               </div>
             </form>
           </div>
+          <p v-if="isProductSending"> Добавляем в корзину... :) </p>
+          <p v-if="isPoductAdded"> Положили товар в корзину :* </p>
         </div>
 
         <div class="item__desc">
@@ -165,6 +170,7 @@ import ProductInput from '@/components/ProductInput.vue';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import BaseLoader from '@/components/BaseLoader.vue';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -174,11 +180,14 @@ export default {
 
   data() {
     return {
-      amound: null,
+      amount: null,
       currentProductColorId: null,
 
       productData: null,
       productDataLoadingFailed: false,
+
+      isPoductAdded: false,
+      isProductSending: false,
     };
   },
 
@@ -208,14 +217,20 @@ export default {
   },
 
   methods: {
+    ...mapActions(['addProductToCard']),
     numberFormat,
 
-    addProductToCard() {
-      this.$store.commit('addProductToCard', {
+    addToCard() {
+      this.isPoductAdded = false;
+      this.isProductSending = true;
+      this.addProductToCard({
         productId: this.product.id,
-        colorId: this.currentProductColorId,
-        amound: this.amound,
-      });
+        amount: this.amount,
+      })
+        .then(() => {
+          this.isProductSending = false;
+          this.isPoductAdded = true;
+        });
     },
 
     loadProduct() {
