@@ -73,14 +73,18 @@ export default new Vuex.Store({
 
     addProductToCard(context, { productId, amount }) {
       return axios
-        .post(`${API_BASE_URL}baskets/products`, {
-          productId,
-          quantity: amount,
-        }, {
-          params: {
-            userAccessKey: context.state.userAccessKey,
+        .post(
+          `${API_BASE_URL}baskets/products`,
+          {
+            productId,
+            quantity: amount,
           },
-        })
+          {
+            params: {
+              userAccessKey: context.state.userAccessKey,
+            },
+          },
+        )
         .then((response) => {
           context.commit('updateCartProductsData', response.data.items);
           context.commit('syncCartProduct');
@@ -90,14 +94,18 @@ export default new Vuex.Store({
     updateCartProductAmound(context, { productId, amount }) {
       context.commit('updateCartProductAmount', { productId, amount });
       return axios
-        .put(`${API_BASE_URL}baskets/products`, {
-          productId,
-          quantity: amount,
-        }, {
-          params: {
-            userAccessKey: context.state.userAccessKey,
+        .put(
+          `${API_BASE_URL}baskets/products`,
+          {
+            productId,
+            quantity: amount,
           },
-        })
+          {
+            params: {
+              userAccessKey: context.state.userAccessKey,
+            },
+          },
+        )
         .then((response) => {
           context.commit('updateCartProductsData', response.data.items);
         })
@@ -109,8 +117,8 @@ export default new Vuex.Store({
     deleteCartProduct(context, { productId }) {
       return axios
         .delete(`${API_BASE_URL}baskets/products`, {
-          headers: {
-            Authorization: context.state.userAccessKey,
+          params: {
+            userAccessKey: context.state.userAccessKey,
           },
           data: {
             productId,
