@@ -119,7 +119,7 @@
           <ul class="cart__orders">
             <li class="cart__order" v-for="elem in products" :key="elem.product.id">
               <h3> {{ elem.product.title }} ({{ elem.amount }}) </h3>
-              <b> {{ elem.product.price }} ₽
+              <b> {{ elem.product.price | numberFormat }} ₽
               </b>
               <span>Артикул: {{ elem.product.id }}</span>
             </li>
@@ -130,7 +130,7 @@
             </p>
             <p>Итого:
               <b> {{ totalProductsCount }} </b> товара на сумму
-              <b> {{ totalPrice }} ₽ </b>
+              <b> {{ totalPrice | numberFormat}} ₽ </b>
             </p>
           </div>
 
@@ -153,6 +153,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BaseLoader from '@/components/BaseLoader.vue';
+import { numberFormat } from '@/helpers/custom_function';
 
 export default {
   components: {
@@ -165,6 +166,10 @@ export default {
       totalPrice: 'totalPrice',
       totalProductsCount: 'totalProductsCount',
     }),
+  },
+
+  filters: {
+    numberFormat,
   },
 
   methods: {
