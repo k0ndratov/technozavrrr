@@ -23,7 +23,8 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ totalProductsCount }} товара
+        {{ totalProductsCount }}
+        {{ declinationProducts(totalProductsCount) }}
       </span>
     </div>
 
@@ -129,7 +130,9 @@
               <b> 500 ₽ </b>
             </p>
             <p>Итого:
-              <b> {{ totalProductsCount }} </b> товара на сумму
+              <b> {{ totalProductsCount }} </b>
+              {{ declinationProducts(totalProductsCount) }}
+              на сумму
               <b> {{ totalPrice | numberFormat}} ₽ </b>
             </p>
           </div>
@@ -153,7 +156,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BaseLoader from '@/components/BaseLoader.vue';
-import { numberFormat } from '@/helpers/custom_function';
+import { numberFormat, declinationProducts } from '@/helpers/custom_function';
 
 export default {
   components: {
@@ -173,6 +176,7 @@ export default {
   },
 
   methods: {
+    declinationProducts,
     ...mapActions(['loadCart']),
   },
 

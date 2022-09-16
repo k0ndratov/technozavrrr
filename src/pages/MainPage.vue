@@ -3,7 +3,10 @@
     <main class="content container">
       <div class="content__top content__top--catalog">
         <h1 class="content__title">Каталог</h1>
-        <span class="content__info"> {{ productsCount}} товара </span>
+        <span class="content__info">
+          {{ productsCount }}
+          {{ declinationProducts(productsCount) }}
+        </span>
       </div>
 
       <div class="content__catalog">
@@ -39,6 +42,7 @@ import ProductFilter from '@/components/ProductFilter.vue';
 import BaseLoader from '@/components/BaseLoader.vue';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
+import { declinationProducts } from '@/helpers/custom_function';
 
 export default {
   components: {
@@ -81,6 +85,7 @@ export default {
   },
 
   methods: {
+    declinationProducts,
     loadProducts() {
       this.productsLoadingFailed = false;
       axios

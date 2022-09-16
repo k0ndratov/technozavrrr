@@ -12,7 +12,10 @@
         </ul>
 
         <h1 class="content__title">Корзина</h1>
-        <span class="content__info"> {{ totalProductsCount }} товара </span>
+        <span class="content__info">
+          {{ totalProductsCount }}
+          {{ declinationProducts(totalProductsCount) }}
+        </span>
       </div>
 
       <section class="cart">
@@ -47,7 +50,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
-import { numberFormat } from '@/helpers/custom_function';
+import { numberFormat, declinationProducts } from '@/helpers/custom_function';
 import AnimatedNumber from '@/components/AnimatedNumber.vue';
 import BaseLoader from '@/components/BaseLoader.vue';
 
@@ -64,6 +67,10 @@ export default {
       totalPrice: 'totalPrice',
       totalProductsCount: 'totalProductsCount',
     }),
+  },
+
+  methods: {
+    declinationProducts,
   },
 
   filters: {
