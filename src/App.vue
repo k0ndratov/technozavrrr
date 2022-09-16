@@ -2,16 +2,16 @@
   <div>
     <header class="header">
       <div class="header__wrapper container">
-        <span class="header__info">Каталог</span>
+        <span class="header__info"> {{ headerInfo }} </span>
 
-        <a class="header__logo" href="#">
+        <router-link :to="{ name: 'main' }" class="header__logo" href="#">
           <img
             src="img/svg/logo-tech.svg"
             alt="Логотип интернет магазина Технозавррр"
             width="190"
             height="33"
           />
-        </a>
+        </router-link>
 
         <a class="header__tel" href="tel:8 800 600 90 09"> 8 800 600 90 09 </a>
         <CartIndicator />
@@ -106,11 +106,24 @@ import CartIndicator from '@/components/CartIndicator.vue';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
+  data() {
+    return {
+      headerInfo: null,
+    };
+  },
+
   components: {
     CartIndicator,
   },
 
+  watch: {
+    $route() {
+      this.headerInfo = this.$route.meta.name;
+    },
+  },
+
   created() {
+    this.headerInfo = this.$route.meta.name;
     const userAccessKey = localStorage.getItem('userAccessKey');
     if (userAccessKey) this.updateUserAccessKey(userAccessKey);
     this.loadCart();
