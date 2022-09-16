@@ -27,6 +27,7 @@
             <p class="cart__price">Итого: <AnimatedNumber :number="totalPrice" /> ₽</p>
 
             <router-link
+              v-if="products.length"
               tag="button"
               :to="{ name: 'order' }"
               class="cart__button button button--primery"
@@ -34,6 +35,7 @@
             >
               Оформить заказ
             </router-link>
+            <p v-else> Вы еще не добавили товары в корзину. </p>
           </div>
         </form>
       </section>
