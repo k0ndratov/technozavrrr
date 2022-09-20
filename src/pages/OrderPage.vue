@@ -29,41 +29,48 @@
     </div>
 
     <section class="cart">
-      <form class="cart__form form" action="#" method="POST">
+      <form class="cart__form form" action="#" method="POST" @submit.prevent="submitOrder">
         <div class="cart__field">
           <div class="cart__data">
-            <label class="form__label" for="#">
-              <input
-                class="form__input"
-                type="text"
-                name="name"
-                placeholder="Введите ваше полное имя">
-              <span class="form__value">ФИО</span>
+            <label class="form__label">
+              <BaseFormText
+                v-model="formData.name"
+                title="ФИО"
+                :error="formError.name"
+                placeholder="Введите ваше полное имя"
+              />
             </label>
-
-            <label class="form__label" for="#">
-              <input class="form__input" type="text" name="address" placeholder="Введите ваш адрес">
-              <span class="form__value">Адрес доставки</span>
+            <label class="form__label">
+              <BaseFormText
+                v-model="formData.address"
+                title="Адрес доставки"
+                :error="formError.address"
+                placeholder="Введите ваш адрес"
+              />
             </label>
-
-            <label class="form__label" for="#">
-              <input class="form__input" type="tel" name="phone" placeholder="Введите ваш телефон">
-              <span class="form__value">Телефон</span>
-              <span class="form__error">Неверный формат телефона</span>
+            <label class="form__label">
+              <BaseFormText
+                v-model="formData.phone"
+                title="Телефон"
+                :error="formError.phone"
+                placeholder="Введите ваш телефон"
+              />
             </label>
-
-            <label class="form__label" for="#">
-              <input class="form__input" type="email" name="email" placeholder="Введи ваш Email">
-              <span class="form__value">Email</span>
+            <label class="form__label">
+              <BaseFormText
+                v-model="formData.email"
+                title="Email"
+                :error="formError.email"
+                placeholder="Введи ваш Email"
+              />
             </label>
-
-            <label class="form__label" for="#">
-              <textarea
-                class="form__input form__input--area"
-                name="comments"
-                placeholder="Ваши пожелания">
-              </textarea>
-              <span class="form__value">Комментарий к заказу</span>
+            <label class="form__label">
+              <BaseFormTextArea
+                v-model="formData.comment"
+                title="Комментарий к заказу"
+                :error="formError.comment"
+                placeholder="Ваши пожелания"
+              />
             </label>
           </div>
 
@@ -155,12 +162,23 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BaseLoader from '@/components/BaseLoader.vue';
 import { numberFormat, declinationProducts } from '@/helpers/custom_function';
+import BaseLoader from '@/components/BaseLoader.vue';
+import BaseFormText from '@/components/forms/BaseFormText.vue';
+import BaseFormTextArea from '@/components/forms/BaseFormTextArea.vue';
 
 export default {
+  data() {
+    return {
+      formData: {},
+      formError: {},
+    };
+  },
+
   components: {
     BaseLoader,
+    BaseFormText,
+    BaseFormTextArea,
   },
 
   computed: {
@@ -177,7 +195,19 @@ export default {
 
   methods: {
     declinationProducts,
-    ...mapActions(['loadCart']),
+    ...mapActions(['loadCart', 'createOrder']),
+
+    submitOrder() {
+      this.formError = {};
+      this.createOrder(this.formData)
+        .then(() => {
+          this.formData = {};
+        })
+        .catch((error) => {
+          this.formError.message = error.response.data.error.message;
+          this.formError = error.response.data.error.request || {};
+        });
+    },
   },
 
   created() {

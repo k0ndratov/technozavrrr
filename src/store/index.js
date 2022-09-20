@@ -51,6 +51,11 @@ export default new Vuex.Store({
         colorId: null,
       }));
     },
+
+    resetCartProduct(state) {
+      state.cartProducts = null;
+      state.cartProductsData = {};
+    },
   },
 
   actions: {
@@ -127,6 +132,25 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('updateCartProductsData', response.data.items);
           context.commit('syncCartProduct');
+        });
+    },
+
+    createOrder(context, { formData }) {
+      console.log(...formData);
+      return axios
+        .post(
+          `${API_BASE_URL}orders`,
+          {
+            ...formData,
+          },
+          {
+            params: {
+              userAccessKey: context.state.userAccessKey,
+            },
+          },
+        )
+        .then(() => {
+          context.commit.resetCartProduct();
         });
     },
   },
