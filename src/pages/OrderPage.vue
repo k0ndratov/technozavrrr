@@ -3,25 +3,17 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <router-link :to="{ name: 'main'}" class="breadcrumbs__link">
-            Каталог
-          </router-link>
+          <router-link :to="{ name: 'main' }" class="breadcrumbs__link"> Каталог </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <router-link :to="{ name: 'cart' }" class="breadcrumbs__link">
-            Корзина
-          </router-link>
+          <router-link :to="{ name: 'cart' }" class="breadcrumbs__link"> Корзина </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link">
-            Оформление заказа
-          </a>
+          <a class="breadcrumbs__link"> Оформление заказа </a>
         </li>
       </ul>
 
-      <h1 class="content__title">
-        Корзина
-      </h1>
+      <h1 class="content__title">Корзина</h1>
       <span class="content__info">
         {{ totalProductsCount }}
         {{ declinationProducts(totalProductsCount) }}
@@ -29,7 +21,7 @@
     </div>
 
     <section class="cart">
-      <form class="cart__form form" action="#" method="POST" @submit.prevent="submitOrder">
+      <form class="cart__form form" method="POST" @submit.prevent="submitOrder">
         <div class="cart__field">
           <div class="cart__data">
             <label class="form__label">
@@ -85,18 +77,14 @@
                     name="delivery"
                     value="0"
                     checked=""
-                  >
-                  <span class="options__value">
-                    Самовывоз <b>бесплатно</b>
-                  </span>
+                  />
+                  <span class="options__value"> Самовывоз <b>бесплатно</b> </span>
                 </label>
               </li>
               <li class="options__item">
                 <label class="options__label" for="#">
-                  <input class="options__radio sr-only" type="radio" name="delivery" value="500">
-                  <span class="options__value">
-                    Курьером <b>500 ₽</b>
-                  </span>
+                  <input class="options__radio sr-only" type="radio" name="delivery" value="500" />
+                  <span class="options__value"> Курьером <b>500 ₽</b> </span>
                 </label>
               </li>
             </ul>
@@ -105,18 +93,14 @@
             <ul class="cart__options options">
               <li class="options__item">
                 <label class="options__label" for="#">
-                  <input class="options__radio sr-only" type="radio" name="pay" value="card">
-                  <span class="options__value">
-                    Картой при получении
-                  </span>
+                  <input class="options__radio sr-only" type="radio" name="pay" value="card" />
+                  <span class="options__value"> Картой при получении </span>
                 </label>
               </li>
               <li class="options__item">
                 <label class="options__label" for="#">
-                  <input class="options__radio sr-only" type="radio" name="pay" value="cash">
-                  <span class="options__value">
-                    Наличными при получении
-                  </span>
+                  <input class="options__radio sr-only" type="radio" name="pay" value="cash" />
+                  <span class="options__value"> Наличными при получении </span>
                 </label>
               </li>
             </ul>
@@ -126,33 +110,30 @@
         <div class="cart__block">
           <ul class="cart__orders">
             <li class="cart__order" v-for="elem in products" :key="elem.product.id">
-              <h3> {{ elem.product.title }} ({{ elem.amount }}) </h3>
-              <b> {{ elem.product.price | numberFormat }} ₽
-              </b>
+              <h3>{{ elem.product.title }} ({{ elem.amount }})</h3>
+              <b> {{ elem.product.price | numberFormat }} ₽ </b>
               <span>Артикул: {{ elem.product.id }}</span>
             </li>
           </ul>
           <div class="cart__total">
-            <p>Доставка:
+            <p>
+              Доставка:
               <b> 500 ₽ </b>
             </p>
-            <p>Итого:
+            <p>
+              Итого:
               <b> {{ totalProductsCount }} </b>
               {{ declinationProducts(totalProductsCount) }}
               на сумму
-              <b> {{ totalPrice | numberFormat}} ₽ </b>
+              <b> {{ totalPrice | numberFormat }} ₽ </b>
             </p>
           </div>
 
-          <button class="cart__button button button--primery" type="submit">
-            Оформить заказ
-          </button>
+          <button class="cart__button button button--primery" type="submit">Оформить заказ</button>
         </div>
         <div class="cart__error form__error-block">
           <h4>Заявка не отправлена!</h4>
-          <p>
-            Похоже произошла ошибка. Попробуйте отправить снова или перезагрузите страницу.
-          </p>
+          <p>Похоже произошла ошибка. Попробуйте отправить снова или перезагрузите страницу.</p>
         </div>
       </form>
     </section>

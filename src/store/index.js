@@ -53,8 +53,8 @@ export default new Vuex.Store({
     },
 
     resetCartProduct(state) {
-      state.cartProducts = null;
-      state.cartProductsData = {};
+      state.cartProduct = null;
+      state.cartProductsData = [];
     },
   },
 
@@ -135,8 +135,7 @@ export default new Vuex.Store({
         });
     },
 
-    createOrder(context, { formData }) {
-      console.log(...formData);
+    createOrder(context, formData) {
       return axios
         .post(
           `${API_BASE_URL}orders`,
@@ -150,7 +149,7 @@ export default new Vuex.Store({
           },
         )
         .then(() => {
-          context.commit.resetCartProduct();
+          context.commit('resetCartProduct');
         });
     },
   },
