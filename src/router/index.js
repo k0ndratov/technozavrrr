@@ -3,6 +3,7 @@ import MainPage from '@/pages/MainPage.vue';
 import ProductPage from '@/pages/ProductPage.vue';
 import CartPage from '@/pages/CartPage.vue';
 import OrderPage from '@/pages/OrderPage.vue';
+import OrderInfoPage from '@/pages/OrderInfoPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
 import VueRouter from 'vue-router';
 
@@ -19,8 +20,7 @@ const routes = [
   },
   {
     name: 'product',
-    component:
-    ProductPage,
+    component: ProductPage,
     path: '/product/:id',
     meta: {
       name: 'Продукт',
@@ -40,6 +40,14 @@ const routes = [
     path: '/order',
     meta: {
       name: 'Заказ',
+    },
+  },
+  {
+    name: 'orderInfo',
+    component: OrderInfoPage,
+    path: '/order/:id',
+    meta: {
+      name: 'Успешный заказ',
     },
   },
   {

@@ -65,7 +65,6 @@
               />
             </label>
           </div>
-
           <div class="cart__options">
             <h3 class="cart__title">Доставка</h3>
             <ul class="cart__options options">
@@ -167,6 +166,7 @@ export default {
       products: 'cartDetailProduct',
       totalPrice: 'totalPrice',
       totalProductsCount: 'totalProductsCount',
+      getOrderId: 'getOrderId',
     }),
   },
 
@@ -182,7 +182,8 @@ export default {
       this.formError = {};
       this.createOrder(this.formData)
         .then(() => {
-          this.formData = {};
+          const orderId = this.getOrderId;
+          this.$router.push({ name: 'orderInfo', params: { id: orderId } });
         })
         .catch((error) => {
           this.formError.message = error.response.data.error.message;

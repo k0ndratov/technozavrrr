@@ -10,7 +10,10 @@ export default new Vuex.Store({
     cartProduct: null,
 
     userAccessKey: null,
+
     cartProductsData: [],
+
+    orderInfo: null,
   },
 
   getters: {
@@ -25,6 +28,14 @@ export default new Vuex.Store({
     totalProductsCount(state, getters) {
       const count = getters.cartDetailProduct.reduce((a, i) => i.amount + a, 0);
       return count;
+    },
+
+    getOrderInfo(state) {
+      return state.orderInfo;
+    },
+
+    getOrderId(state) {
+      return state.orderInfo.id;
     },
   },
 
@@ -55,6 +66,10 @@ export default new Vuex.Store({
     resetCartProduct(state) {
       state.cartProduct = null;
       state.cartProductsData = [];
+    },
+
+    updateOrderInfo(state, order) {
+      state.orderInfo = order;
     },
   },
 
@@ -148,8 +163,22 @@ export default new Vuex.Store({
             },
           },
         )
-        .then(() => {
+        .then((response) => {
+          context.commit('updateOrderInfo', response.data);
           context.commit('resetCartProduct');
+          context.commit('syncCartProduct');
+        });
+    },
+
+    fetchOrderInfo(context, id) {
+      return axios
+        .get(`${API_BASE_URL}orders/${id}`, {
+          params: {
+            userAccessKey: context.state.userAccessKey,
+          },
+        })
+        .then((response) => {
+          context.commit('updateOrderInfo', response.data);
         });
     },
   },
