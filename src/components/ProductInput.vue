@@ -10,15 +10,8 @@
         <use xlink:href="#icon-minus"></use>
       </svg>
     </button>
-    <label for="count" >
-      <input
-        type="number"
-        name="count"
-        id="count"
-        v-model.number="currentAmound"
-        step="10"
-        min="1"
-      />
+    <label for="count">
+      <input type="number" name="count" id="count" v-model.number="currentAmound" min="1" />
     </label>
     <button
       type="button"
@@ -77,21 +70,21 @@ export default {
 </script>
 
 <style scoped>
-  .form__counter {
-    border: 1px solid black;
-  }
+.form__counter {
+  border: 1px solid black;
+}
 
-  .cursorPoiner {
-    cursor: pointer;
-  }
+.cursorPoiner {
+  cursor: pointer;
+}
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-  }
+}
 
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
+input[type='number'] {
+  -moz-appearance: textfield;
+}
 </style>
